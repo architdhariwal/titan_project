@@ -29,20 +29,20 @@ const mainNavItems: NavItem[] = [
   { label: "MORE", href: "#" },
 ];
 
-const shopByCategories = [
-  "View All",
-  "New Arrivals",
-  "Trending",
-  "Smart Watches",
-  "Shop By Looks",
-  "Shop By Color",
-  "Shop By Brand",
-  "Shop By Collection",
-  "Shop By Function",
-  "Shop By Movement",
-  "Shop By Price",
-  "Shop By Dial",
-];
+// const shopByCategories = [
+//   "View All",
+//   "New Arrivals",
+//   "Trending",
+//   "Smart Watches",
+//   "Shop By Looks",
+//   "Shop By Color",
+//   "Shop By Brand",
+//   "Shop By Collection",
+//   "Shop By Function",
+//   "Shop By Movement",
+//   "Shop By Price",
+//   "Shop By Dial",
+// ];
 
 export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
