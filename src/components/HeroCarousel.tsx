@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState, useEffect, useCallback } from 'react';
 
 interface Slide {
@@ -115,18 +116,20 @@ export default function HeroCarousel() {
         </div>
 
         {/* Navigation Arrows */}
-        <button
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
-          onClick={() => goToSlide((currentSlide - 1 + slides.length) % slides.length)}
+        <button 
+          className={`absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10`}
+            onClick={() => goToSlide((currentSlide - 1 + slides.length) % slides.length)}
         >
-          ←
+          <ChevronLeft className="text-gray-700" />
         </button>
-        <button
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
-          onClick={() => goToSlide((currentSlide + 1) % slides.length)}
+        <button 
+          className={`absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10`}
+            onClick={() => goToSlide((currentSlide + 1) % slides.length)}
         >
-          →
+          <ChevronRight className="text-gray-700" />
         </button>
+
+
       </div>
 
       {/* Navigation Labels Below Carousel */}

@@ -1,8 +1,8 @@
 export interface User {
-    id: string;
-    name: string;
+    id: number;
+    username: string;
     email: string;
     password: string;
-    roleId: string;
-    addressIds?: string[];
-}
+    role: 'admin' | 'customer';
+    balance?: number;
+  }

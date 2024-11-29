@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/titan-banner.svg";
 import {
   FiSearch,
   FiUser,
-  FiHeart,
   FiShoppingCart,
   FiMapPin,
   FiChevronDown,
   FiMic,
 } from "react-icons/fi";
 import { HiBuildingStorefront } from "react-icons/hi2";
+import { useAuth } from "../contexts/AuthContext";
 
 interface NavItem {
   label: string;
@@ -29,24 +30,11 @@ const mainNavItems: NavItem[] = [
   { label: "MORE", href: "#" },
 ];
 
-// const shopByCategories = [
-//   "View All",
-//   "New Arrivals",
-//   "Trending",
-//   "Smart Watches",
-//   "Shop By Looks",
-//   "Shop By Color",
-//   "Shop By Brand",
-//   "Shop By Collection",
-//   "Shop By Function",
-//   "Shop By Movement",
-//   "Shop By Price",
-//   "Shop By Dial",
-// ];
-
 export default function Header() {
+  const { user, logout, isAdmin, isCustomer, isLoggedIn } = useAuth();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +47,13 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+ 
+  const handleAccountClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  };
 
   return (
     <nav className="w-full bg-white">
@@ -90,25 +85,50 @@ export default function Header() {
 
             {/* Right Icons */}
             <div className="flex items-center space-x-6">
-              <div className="flex flex-col items-center cursor-pointer">
-                <FiUser className="h-6 w-6" />
-                <span className="text-xs mt-1">Account</span>
-              </div>
-              <div className="flex flex-col items-center cursor-pointer">
-                <FiHeart className="h-6 w-6" />
-                <span className="text-xs mt-1">Wishlist</span>
-              </div>
-              <div className="flex flex-col items-center relative cursor-pointer">
-                <FiShoppingCart className="h-6 w-6" />
-                <span className="text-xs mt-1">Cart</span>
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  1
-                </span>
-              </div>
-              <div className="flex flex-col items-center cursor-pointer">
-                <HiBuildingStorefront className="h-6 w-6" />
-                <span className="text-xs mt-1">Track Order</span>
-              </div>
+               {/* Display Account Icon Only if User is Not Logged In */}
+               {!isLoggedIn && (
+                <div
+                  className="flex flex-col items-center cursor-pointer"
+                  onClick={handleAccountClick}
+                >
+                  <FiUser className="h-6 w-6" />
+                  <span className="text-xs mt-1">Account</span>
+                </div>
+              )}
+
+              {/* Conditional Rendering Based on User Role */}
+              {isAdmin && (
+                <Link to="/admin-dashboard" className="flex flex-col items-center cursor-pointer">
+                  <span className="text-xs mt-1">Admin</span>
+                </Link>
+              )}
+
+              {isCustomer && (
+                <>
+                  <Link to="/cart" className="flex flex-col items-center relative cursor-pointer">
+                    <FiShoppingCart className="h-6 w-6" />
+                    <span className="text-xs mt-1">Cart</span>
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      1
+                    </span>
+                  </Link>
+                  <Link to="/orders" className="flex flex-col items-center cursor-pointer">
+                    <HiBuildingStorefront className="h-6 w-6" />
+                    <span className="text-xs mt-1">Orders</span>
+                  </Link>
+                </>
+              )}
+
+             
+
+       {isLoggedIn && (
+                <button
+                  onClick={logout}
+                  className="flex flex-col items-center cursor-pointer"
+                >
+                  <span className="text-xs mt-1">Logout</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -150,4 +170,3 @@ export default function Header() {
     </nav>
   );
 }
-
