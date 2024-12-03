@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Product } from '../../models/Product_types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -19,10 +17,11 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
 }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Omit<Product, 'id'>>({
-    image: '',
+    images: [],
     title: '',
     description: '',
     category: '',
+    subcategory: '',
     price: 0,
     originalPrice: 0,
     discount: 0,
@@ -34,10 +33,11 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
   useEffect(() => {
     if (product) {
       setFormData({
-        image: product.image,
+        images: product.images,
         title: product.title,
         description: product.description,
         category: product.category,
+        subcategory: product.subcategory || '',
         price: product.price,
         originalPrice: product.originalPrice,
         discount: product.discount,
@@ -47,10 +47,11 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
       });
     } else {
       setFormData({
-        image: '',
+        images: [],
         title: '',
         description: '',
         category: '',
+        subcategory: '',
         price: 0,
         originalPrice: 0,
         discount: 0,
@@ -66,8 +67,25 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'category' ? value : Number(value) || value,
+      [name]: ['price', 'originalPrice', 'discount', 'stock', 'rating', 'reviewsCount'].includes(name)
+        ? Number(value)
+        : value,
     }));
+  };
+
+  const handleImageChange = (index: number, value: string) => {
+    const newImages = [...formData.images];
+    newImages[index] = value;
+    setFormData((prev) => ({ ...prev, images: newImages }));
+  };
+
+  const addImageField = () => {
+    setFormData((prev) => ({ ...prev, images: [...prev.images, ''] }));
+  };
+
+  const removeImageField = (index: number) => {
+    const newImages = formData.images.filter((_, i) => i !== index);
+    setFormData((prev) => ({ ...prev, images: newImages }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -133,15 +151,42 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Image URL</label>
+                <label className="block text-sm font-medium mb-1">Subcategory</label>
                 <input
-                  type="url"
-                  name="image"
-                  value={formData.image}
+                  type="text"
+                  name="subcategory"
+                  value={formData.subcategory}
                   onChange={handleChange}
                   className="w-full p-2 border rounded"
-                  required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Image URLs</label>
+                {formData.images.map((image, index) => (
+                  <div key={index} className="flex mb-2">
+                    <input
+                      type="url"
+                      value={image}
+                      onChange={(e) => handleImageChange(index, e.target.value)}
+                      className="flex-1 p-2 border rounded mr-2"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImageField(index)}
+                      className="px-2 py-1 bg-red-500 text-white rounded"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={addImageField}
+                  className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
+                >
+                  Add Image URL
+                </button>
               </div>
             </div>
           )}

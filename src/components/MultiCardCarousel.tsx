@@ -1,117 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Card, { CardProps } from './Card';
+import { useNavigate } from 'react-router-dom';
+import { getProductsByCategory } from '../services/productService';
+
 
 const MultiCardCarousel: React.FC = () => {
+  const [products, setProducts] = useState<CardProps[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const data: CardProps[]  = [
-    {
-      id: 1,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw6c9df22a/images/Titan/Catalog/2656WM01_1.jpg?sw=360&sh=360",
-      title: "Fastrack Luxe Automatic",
-      category: "Women's Watch",
-      price: "₹4,590",
-      originalPrice: "₹5,100",
-      discount: "10% off",
-      rating: 3.7,
-      reviewsCount: 55,
-    },
-    {
-      id: 2,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw6eadd3c4/images/Titan/Catalog/16017PP03_1.jpg?sw=360&sh=360",
-      title: "Sonata Together Quartz",
-      category: "Smartwatch",
-      price: "₹4,680",
-      originalPrice: "₹5,200",
-      discount: "10% off",
-      rating: 3.9,
-      reviewsCount: 60,
-    },
-    {
-      id: 3,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw9f776127/images/Helios/Catalog/PLPEWGK0039205_1.jpg?sw=360&sh=360",
-      title: "Police Sports Chronograph",
-      category: "Men's Watch",
-      price: "₹4,770",
-      originalPrice: "₹5,300",
-      discount: "10% off",
-      rating: 4.1,
-      reviewsCount: 65,
-    },
-    {
-      id: 4,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw94b23fe5/images/Helios/Catalog/TH1710500_1.jpg?sw=360&sh=360",
-      title: "Tommy-Hilfiger Bold Smart",
-      category: "Regular Watch",
-      price: "₹4,860",
-      originalPrice: "₹5,400",
-      discount: "10% off",
-      rating: 4.3,
-      reviewsCount: 70,
-    },
-    {
-      id: 5,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc6b615a0/images/Helios/Catalog/KC50777002MN_1.jpg?sw=360&sh=360",
-      title: "Kennet Luxe Mechanical",
-      category: "Gifting Watch",
-      price: "₹4,950",
-      originalPrice: "₹5,500",
-      discount: "10% off",
-      rating: 3.5,
-      reviewsCount: 75,
-    },
-    {
-      id: 6,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwcb7ae7c4/images/Fastrack/Catalog/FV30004KM01W_1.jpg?sw=360&sh=360",
-      title: "Anni-Klien Together Automatic",
-      category: "Sale Watch",
-      price: "₹5,040",
-      originalPrice: "₹5,600",
-      discount: "10% off",
-      rating: 3.7,
-      reviewsCount: 80,
-    },
-    {
-      id: 7,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4d42236d/images/Titan/Catalog/26026PP06W_1.jpg?sw=360&sh=360",
-      title: "Coach Sports Quartz",
-      category: "Kids' Watch",
-      price: "₹5,130",
-      originalPrice: "₹5,700",
-      discount: "10% off",
-      rating: 3.9,
-      reviewsCount: 85,
-    },
-    {
-      id: 8,
-      imageUrl: "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwb5faa7ee/images/Sonata/Catalog/SP70034SM01W_1.jpg?sw=360&sh=360",
-      title: "Titan Bold Chronograph",
-      category: "Men's Watch",
-      price: "₹5,220",
-      originalPrice: "₹5,800",
-      discount: "10% off",
-      rating: 4.1,
-      reviewsCount: 90,
-    },
-  ];
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedProducts = await getProductsByCategory('men', 'bestsellers');
+        
+        const transformedProducts: CardProps[] = fetchedProducts.map(product => ({
+          id: product.id,
+          images: product.images,
+          title: product.title,
+          category: `${product.category} ${product.subcategory}`,
+          price: `₹${product.price.toFixed(2)}`,
+          originalPrice: `₹${product.originalPrice.toFixed(2)}`,
+          discount: product.discount,
+          rating: product.rating,
+          reviewsCount: product.reviewsCount
+        }));
+
+        setProducts(transformedProducts.slice(0, 8)); 
+        setIsLoading(false);
+      } catch (err) {
+        setError('Failed to fetch products');
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleNext = () => {
-    // Only allow moving right if not at the end of the carousel
-    if (currentIndex < data.length - 3) {
+    if (currentIndex < products.length - 3) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const handlePrev = () => {
-    // Only allow moving left if not at the beginning of the carousel
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
 
+  const handleCardClick = (productId: number) => {
+    navigate(`/products/${productId}`);
+  };
+
+  if (isLoading) {
+    return <div className="text-center py-8">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-8 text-red-500">{error}</div>;
+  }
+
+  if (products.length === 0) {
+    return <div className="text-center py-8">No products found</div>;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
+      <h3 className="text-2xl font-bold mb-6 text-gray-800">Bestselling Items</h3>
       <div className="relative">
         <div className="overflow-hidden">
           <div 
@@ -120,11 +80,15 @@ const MultiCardCarousel: React.FC = () => {
               transform: `translateX(-${currentIndex * (288 + 24)}px)` 
             }}
           >
-            {data.map((item) => (
-              <div key={item.id} className="flex-shrink-0 w-80">
+            {products.map((item) => (
+              <div 
+                key={item.id} 
+                className="flex-shrink-0 w-80 cursor-pointer"
+                onClick={() => handleCardClick(item.id)}
+              >
                 <Card
                   id={item.id}
-                  imageUrl={item.imageUrl}
+                  images={item.images}
                   title={item.title}
                   category={item.category}
                   price={item.price}
@@ -138,7 +102,6 @@ const MultiCardCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation Buttons */}
         <button 
           className={`absolute left-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
             ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -149,9 +112,9 @@ const MultiCardCarousel: React.FC = () => {
         </button>
         <button 
           className={`absolute right-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
-            ${currentIndex >= data.length - 3 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            ${currentIndex >= products.length - 3 ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handleNext}
-          disabled={currentIndex >= data.length - 3}
+          disabled={currentIndex >= products.length - 3}
         >
           <ChevronRight className="text-gray-700" />
         </button>
@@ -161,3 +124,4 @@ const MultiCardCarousel: React.FC = () => {
 };
 
 export default MultiCardCarousel;
+

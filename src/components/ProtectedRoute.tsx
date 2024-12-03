@@ -10,7 +10,7 @@ type ProtectedRouteProps = {
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   const { isLoggedIn,user, isLoading } = useAuth();
   if (isLoading) {
-    return <div>Loading...</div>; // replace this with a loading spinner if needed
+    return <div>Loading...</div>; 
   }
 
   if (!isLoggedIn) {

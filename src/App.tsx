@@ -8,53 +8,51 @@ import Signup from "./pages/Register";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ThankYou from "./pages/ThankYou";
-import CategoryPage from "./pages/CategoryPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ProductPage from "./pages/ProductPage";
+import ProductDetails from "./pages/ProductDetails";
 
 const App: React.FC = () => {
   return (
     <Router>
       <AuthProvider>
-        {/* Added Toaster here */}
-        <Toaster 
-          position="bottom-center"
-          toastOptions={{
-            // Default options for all toasts
-            duration: 4000,
-            style: {
-              background: '#363636',
-              color: '#fff',
-            },
-          }}
-        />
-        
-        <Routes>
+         
+          <Toaster 
+            position="bottom-center"
+            toastOptions={{
+            
+              duration: 3000,
+              style: {
+                background: '#4CAF50',
+                color: '#fff',
+              },
+            }}
+          />
           
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Signup />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Signup />} />
 
-          {/* Admin Protected Routes */}
-          <Route 
-            element={<ProtectedRoute allowedRoles={['admin']} />}
-          >
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          </Route>
+            <Route 
+              element={<ProtectedRoute allowedRoles={['admin']} />}
+            >
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            </Route>
 
-          {/* Customer Protected Routes */}
-          <Route 
-            element={<ProtectedRoute allowedRoles={['customer']} />}
-          >
-            <Route path="/products" element={<ProductPage />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Route>
+            <Route 
+              element={<ProtectedRoute allowedRoles={['customer']} />}
+            >
+              <Route path="/products" element={<ProductPage />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/thank-you" element={<ThankYou />} />
+            </Route>
 
-          {/* Catch-all route */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
       </AuthProvider>
     </Router>
   );

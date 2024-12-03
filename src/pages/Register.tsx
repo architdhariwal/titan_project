@@ -5,11 +5,13 @@ import { createUser } from '../services/userService';
 import { User } from '../models/User_types';
 import { useAuth } from '../contexts/AuthContext';
 import { showToast } from '../utils/toastUtility';
+import { Eye, EyeOff } from 'lucide-react';
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { refreshUsers } = useAuth();
@@ -18,22 +20,36 @@ const RegisterPage: React.FC = () => {
     e.preventDefault();
     setError('');
 
+    if (!username || !email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
     try {
       const newUser: Omit<User, 'id'> = {
         username,
         email,
         password,
         role: 'customer',
-        balance: 500,
+        balance: 5000,
       };
 
       await createUser(newUser);
       await refreshUsers();
-      
-      // Use the new toast utility
+
       showToast.success('Account created successfully!', {
         duration: 3000,
-        position: 'bottom-center'
+        position: 'bottom-center',
       });
 
       setTimeout(() => {
@@ -45,11 +61,12 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-titan-bg-theme">
       <Toaster />
-      
-      <form onSubmit={handleSignUp} className="bg-white p-8 rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Register</h2>
+
+      <form onSubmit={handleSignUp} className="bg-amber-50 p-8 rounded shadow-md w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center text-amber-600">Register</h2>
+        {error && <div className="text-red-500 mb-4 text-sm">{error}</div>}
         <input
           type="text"
           placeholder="Username"
@@ -64,19 +81,28 @@ const RegisterPage: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="block w-full p-3 mb-4 border border-gray-300 rounded"
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="block w-full p-3 mb-4 border border-gray-300 rounded"
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="block w-full p-3 mb-4 border border-gray-300 rounded pr-10"
+          />
+          <button
+            type="button"
+            className="absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <Eye className="w-5 h-5 text-gray-500" /> : <EyeOff className="w-5 h-5 text-gray-500" />}
+          </button>
+        </div>
+        <button type="submit" className="w-full bg-amber-600 text-white p-3 rounded hover:bg-amber-700">
           Register
         </button>
         <p className="text-center mt-4 text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-amber-600 hover:underline">
             Login
           </Link>
         </p>

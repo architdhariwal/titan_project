@@ -1,0 +1,590 @@
+{
+  "users": [
+    {
+      "username": "admin123",
+      "email": "admin@gmail.com",
+      "password": "$2a$10$JTIfEATZAymd7dxVN0WT..27sAvgN1dCS6xQwFFj7gsNzu8yCuRwG",
+      "role": "admin",
+      "balance": 500,
+      "id": 3
+    },
+    {
+      "username": "archit",
+      "email": "archit@gmail.com",
+      "password": "$2a$10$Hb6nSmBT1j.XzZCFXIEcxu45NyVIC8jClmSIB.IqDlhtUAjpPaNR6",
+      "role": "customer",
+      "balance": 7165.05,
+      "id": 4,
+      "addresses": [
+        {
+          "street": "street 2",
+          "city": "Haridwar",
+          "state": "Uttarakhand",
+          "zipCode": "112233",
+          "country": "India",
+          "isDefault": false,
+          "id": 1
+        },
+        {
+          "street": "gali 4",
+          "city": "bangalore",
+          "state": "karnataka",
+          "zipCode": "556677",
+          "country": "India",
+          "isDefault": false,
+          "id": 2
+        }
+      ]
+    },
+    {
+      "username": "dummy",
+      "email": "dummy@gmail.com",
+      "password": "$2a$10$NPsJKxGaQTjKd3EVC2ZitelUVJ7bE7Pd/uhJtiz3TgblmIxDhYj5S",
+      "role": "customer",
+      "balance": 3520.0400000000004,
+      "id": 5,
+      "addresses": [
+        {
+          "street": "new street",
+          "city": "bangalore",
+          "state": "Karnataka",
+          "zipCode": "112233",
+          "country": "India",
+          "isDefault": false,
+          "id": 1
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Men's Smart Watch",
+      "description": "Stylish and durable watch for men.",
+      "category": "men",
+      "subcategory": "smartwatch",
+      "price": 499.99,
+      "originalPrice": 599.99,
+      "discount": 17,
+      "stock": 50,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwb5faa7ee/images/Sonata/Catalog/SP70034SM01W_1.jpg?sw=360&sh=360",
+        "https://www.sonatawatches.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwea1cea43/images/Sonata/Catalog/SP70039KM02W_1.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.8,
+      "reviewsCount": 150
+    },
+    {
+      "id": 2,
+      "title": "Elite Chrono Series Watch",
+      "description": "A sophisticated watch blending style and functionality, ideal for any event.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 359.99,
+      "originalPrice": 461.99,
+      "discount": 25,
+      "stock": 26,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw758a93e3/images/Titan/Catalog/1806NL02_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw2482ad6d/images/Titan/Catalog/1806NL02_2.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.3,
+      "reviewsCount": 50
+    },
+    {
+      "id": 3,
+      "title": "Urban Alpha Timepiece",
+      "description": "An urban-styled watch with a contemporary design for modern men.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 364.99,
+      "originalPrice": 467.99,
+      "discount": 15,
+      "stock": 29,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4743ffe5/images/Titan/Catalog/1828KM02_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc989ca5e/images/Titan/Catalog/1847KM01_1.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.5,
+      "reviewsCount": 75
+    },
+    {
+      "id": 4,
+      "title": "Classic Vintage Men's Watch",
+      "description": "A timeless classic watch featuring vintage aesthetics and premium build.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 369.99,
+      "originalPrice": 473.99,
+      "discount": 20,
+      "stock": 32,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw7c3968a9/images/Titan/Catalog/1843QM02_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw83895172/images/Titan/Catalog/1843QM02_2.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.9,
+      "reviewsCount": 100
+    },
+    {
+      "id": 5,
+      "title": "Modern Precision Quartz",
+      "description": "A sleek quartz watch crafted for accuracy and modern elegance.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 374.99,
+      "originalPrice": 479.99,
+      "discount": 25,
+      "stock": 35,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw6ea9384b/images/Titan/Catalog/1843YM01_1.jpg?sw=600&sh=600",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4c9c2f8c/images/Titan/Catalog/1843YM01_5.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.3,
+      "reviewsCount": 125
+    },
+    {
+      "id": 6,
+      "title": "Heritage Royal Chronometer",
+      "description": "Royal and elegant, this watch embodies traditional craftsmanship.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 379.99,
+      "originalPrice": 485.99,
+      "discount": 15,
+      "stock": 38,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwce291a55/images/Helios/Catalog/KCWGE2220502MN_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw1eaed17d/images/Helios/Catalog/KCWGE2220502MN_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.5,
+      "reviewsCount": 150
+    },
+    {
+      "id": 7,
+      "title": "Dynamic Pro Sports Watch",
+      "description": "Designed for sports enthusiasts, offering durability and precision.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 384.99,
+      "originalPrice": 491.99,
+      "discount": 20,
+      "stock": 41,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw45fdc003/images/Helios/Catalog/PL15936JSB19MGNW_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc645c2bc/images/Helios/Catalog/PL15936JSB19MGNW_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.9,
+      "reviewsCount": 175
+    },
+    {
+      "id": 8,
+      "title": "Timeless Luxe Design",
+      "description": "A luxurious watch with fine details and a timeless appeal.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 389.99,
+      "originalPrice": 497.99,
+      "discount": 25,
+      "stock": 44,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc1b40939/images/Helios/Catalog/TH1792079_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw520c1f82/images/Helios/Catalog/TH1792079_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.3,
+      "reviewsCount": 200
+    },
+    {
+      "id": 9,
+      "title": "Adventure Steel Chrono",
+      "description": "Built for adventurers, this chronograph delivers robust performance.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 394.99,
+      "originalPrice": 503.99,
+      "discount": 15,
+      "stock": 47,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwfc38d15e/images/Helios/Catalog/PLPEWJF0004601_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc85c73a7/images/Helios/Catalog/PLPEWJF0004601_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.5,
+      "reviewsCount": 225
+    },
+    {
+      "id": 10,
+      "title": "Minimalist Analog Watch",
+      "description": "A minimalist watch emphasizing clean design and superior quality.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 399.99,
+      "originalPrice": 509.99,
+      "discount": 20,
+      "stock": 50,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw1946ba64/images/Titan/Catalog/1595QL01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw23e3157c/images/Titan/Catalog/1595QL01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.9,
+      "reviewsCount": 250
+    },
+    {
+      "id": 11,
+      "title": "Bold Accent Metallic Watch",
+      "description": "A bold watch with metallic accents, perfect for making a statement.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 404.99,
+      "originalPrice": 515.99,
+      "discount": 25,
+      "stock": 53,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwa2b32768/images/Helios/Catalog/TH1792059_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw8cb350ac/images/Helios/Catalog/TH1792059_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.3,
+      "reviewsCount": 275
+    },
+    {
+      "id": 12,
+      "title": "Fusion Style Dual-tone",
+      "description": "A fusion of traditional and modern styles with dual-tone finishing.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 409.99,
+      "originalPrice": 521.99,
+      "discount": 15,
+      "stock": 56,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4443ca4e/images/Titan/Catalog/1806SM03_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw3569e63c/images/Titan/Catalog/1806SM03_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.5,
+      "reviewsCount": 300
+    },
+    {
+      "id": 13,
+      "title": "Elegant Leather Strap Watch",
+      "description": "An elegant watch with a genuine leather strap for a premium feel.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 414.99,
+      "originalPrice": 527.99,
+      "discount": 20,
+      "stock": 59,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw2d382022/images/Helios/Catalog/TH1791906_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw6c089bb1/images/Helios/Catalog/TH1791906_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 3.9,
+      "reviewsCount": 325
+    },
+    {
+      "id": 14,
+      "title": "TechEdge Smart Timepiece",
+      "description": "Smart functionality meets edgy design in this cutting-edge timepiece.",
+      "category": "men",
+      "subcategory": "bestsellers",
+      "price": 419.99,
+      "originalPrice": 533.99,
+      "discount": 25,
+      "stock": 62,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwbc3f07c4/images/Titan/Catalog/1595WL09_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw431323a6/images/Titan/Catalog/1595WL09_2.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.3,
+      "reviewsCount": 350
+    },
+    {
+      "id": 15,
+      "title": "Celestial Diamond Elegance Watch",
+      "description": "Exquisite luxury timepiece adorned with precision-cut diamonds and a mother-of-pearl dial, epitomizing refined sophistication for the discerning woman.",
+      "category": "women",
+      "subcategory": "luxury",
+      "price": 2999.99,
+      "originalPrice": 3499.99,
+      "discount": 14,
+      "stock": 25,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwbf206129/images/Titan/Catalog/95262WM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw5fbbaa6b/images/Titan/Catalog/95262WM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.9,
+      "reviewsCount": 87
+    },
+    {
+      "id": 16,
+      "title": "Royal Crystal Chronograph",
+      "description": "Opulent luxury watch featuring a Swiss movement, Swarovski crystal accents, and a rose gold-plated stainless steel band, designed for ultimate elegance.",
+      "category": "women",
+      "subcategory": "luxury",
+      "price": 3499.5,
+      "originalPrice": 4099.99,
+      "discount": 15,
+      "stock": 18,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw55ffe55f/images/Titan/Catalog/95272WM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw2885e76e/images/Titan/Catalog/95272WM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.7,
+      "reviewsCount": 65
+    },
+    {
+      "id": 17,
+      "title": "Midnight Sapphire Tourbillon",
+      "description": "Ultra-premium luxury timepiece with a rare tourbillon movement, midnight blue sapphire dial, and hand-stitched leather strap from finest Italian craftsmen.",
+      "category": "women",
+      "subcategory": "luxury",
+      "price": 4999.99,
+      "originalPrice": 5599.99,
+      "discount": 11,
+      "stock": 12,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwca18f5b5/images/Titan/Catalog/95266WM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwb826f8df/images/Titan/Catalog/95266WM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.9,
+      "reviewsCount": 42
+    },
+    {
+      "id": 18,
+      "title": "Imperial Pearl Timekeeper",
+      "description": "Lavish luxury watch showcasing rare white pearls, intricate Swiss complications, and a platinum-coated stainless steel case, symbolizing timeless sophistication.",
+      "category": "women",
+      "subcategory": "luxury",
+      "price": 3799.75,
+      "originalPrice": 4299.99,
+      "discount": 12,
+      "stock": 15,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw88062101/images/Titan/Catalog/2715QM01F_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw3ed55424/images/Titan/Catalog/2715QM01F_2.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.8,
+      "reviewsCount": 53
+    },
+    {
+      "id": 19,
+      "title": "Urban Chic Smart Companion",
+      "description": "Top-selling smartwatch designed for modern women, featuring health tracking, customizable watch faces, and seamless smartphone integration with sleek design.",
+      "category": "women",
+      "subcategory": "bestsellers",
+      "price": 249.99,
+      "originalPrice": 299.99,
+      "discount": 17,
+      "stock": 100,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0713b276/images/Titan/Catalog/95283WM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4a702fce/images/Titan/Catalog/95283WM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.7,
+      "reviewsCount": 342
+    },
+    {
+      "id": 20,
+      "title": "Fitness Pro Tracker Watch",
+      "description": "Advanced fitness smartwatch with comprehensive health monitoring, GPS tracking, water resistance, and long-lasting battery for active women on the go.",
+      "category": "women",
+      "subcategory": "bestsellers",
+      "price": 199.5,
+      "originalPrice": 249.99,
+      "discount": 20,
+      "stock": 85,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0a2264b5/images/Titan/Catalog/95228WM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw5b5b34b2/images/Titan/Catalog/95228WM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.6,
+      "reviewsCount": 276
+    },
+    {
+      "id": 21,
+      "title": "Elegant Touch Hybrid Smartwatch",
+      "description": "Sophisticated hybrid smartwatch blending classic analog design with modern digital features, perfect for professional and social environments.",
+      "category": "women",
+      "subcategory": "bestsellers",
+      "price": 279.99,
+      "originalPrice": 329.99,
+      "discount": 15,
+      "stock": 60,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwcc3fa2a0/images/Titan/Catalog/95282KM01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwac525b98/images/Titan/Catalog/95282KM01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.8,
+      "reviewsCount": 214
+    },
+    {
+      "id": 22,
+      "title": "Minimalist Tech Companion",
+      "description": "Sleek and lightweight smartwatch with intuitive interface, essential health tracking, and minimalist design that complements any outfit.",
+      "category": "women",
+      "subcategory": "bestsellers",
+      "price": 179.99,
+      "originalPrice": 219.99,
+      "discount": 18,
+      "stock": 75,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwa20ba928/images/Titan/Catalog/95189KC05_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwb346ced4/images/Titan/Catalog/95189KC05_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.5,
+      "reviewsCount": 189
+    },
+    {
+      "id": 23,
+      "title": "Adventure Explorer Smartwatch",
+      "description": "Rugged kids' smartwatch with GPS tracking, SOS emergency button, and parental control app. Designed to keep children safe while providing fun educational features.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 129.99,
+      "originalPrice": 159.99,
+      "discount": 19,
+      "stock": 65,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwd12afde3/images/Titan/Catalog/16039PP01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw9e8ab16a/images/Titan/Catalog/16039PP01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.6,
+      "reviewsCount": 215
+    },
+    {
+      "id": 24,
+      "title": "Learning Buddy Interactive Smartwatch",
+      "description": "Educational smartwatch with interactive learning games, step counter, and customizable character companion. Encourages physical activity and cognitive development.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 109.5,
+      "originalPrice": 139.99,
+      "discount": 22,
+      "stock": 50,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0f25ccdf/images/Titan/Catalog/C4048PP52_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw57c4fb8e/images/Titan/Catalog/C4048PP52_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.7,
+      "reviewsCount": 178
+    },
+    {
+      "id": 25,
+      "title": "Superhero Connect Smartwatch",
+      "description": "Superhero-themed smartwatch with video calling, messaging, and augmented reality games. Includes customizable superhero avatar and parental monitoring features.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 139.99,
+      "originalPrice": 179.99,
+      "discount": 22,
+      "stock": 40,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw9e71dba3/images/Titan/Catalog/16018PP07_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw87d6f251/images/Titan/Catalog/16018PP07_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.8,
+      "reviewsCount": 196
+    },
+    {
+      "id": 26,
+      "title": "Outdoor Explorer Kids Smartwatch",
+      "description": "Waterproof smartwatch with advanced GPS tracking, activity challenges, and nature-inspired educational content. Perfect for adventurous and curious children.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 149.75,
+      "originalPrice": 189.99,
+      "discount": 21,
+      "stock": 35,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwe5d22129/images/Titan/Catalog/16025PP05_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw2742cafb/images/Titan/Catalog/16025PP05_2.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.5,
+      "reviewsCount": 142
+    },
+    {
+      "id": 27,
+      "title": "Creative Genius Kids Smartwatch",
+      "description": "Innovative smartwatch with art creation tools, music composition features, and skill-building mini-games. Nurtures creativity and technological literacy.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 119.99,
+      "originalPrice": 149.99,
+      "discount": 20,
+      "stock": 55,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw38bc1fef/images/Titan/Catalog/16040PP01W_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0400de1e/images/Titan/Catalog/16040PP01W_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.6,
+      "reviewsCount": 164
+    },
+    {
+      "id": 28,
+      "title": "Fitness Fun Tracker Smartwatch",
+      "description": "Active kids' smartwatch with comprehensive fitness tracking, motivational challenges, and rewards system. Encourages healthy lifestyle and physical activity.",
+      "category": "kids",
+      "subcategory": "smartwatch",
+      "price": 99.5,
+      "originalPrice": 129.99,
+      "discount": 23,
+      "stock": 60,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4d42236d/images/Titan/Catalog/26026PP06W_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc09f29e5/images/Titan/Catalog/26026PP06W_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.4,
+      "reviewsCount": 187
+    },
+    {
+      "id": 29,
+      "title": "Dinosaur Adventure Bestseller Watch",
+      "description": "Exciting dinosaur-themed kids' watch with interactive prehistoric games, educational dinosaur facts, and vibrant color-changing display. A perfect blend of fun and learning.",
+      "category": "kids",
+      "subcategory": "bestsellers",
+      "price": 79.99,
+      "originalPrice": 99.99,
+      "discount": 20,
+      "stock": 90,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw5d809db5/images/Titan/Catalog/26033PP01_1.jpg?sw=360&sh=360",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwfc54cf73/images/Titan/Catalog/26033PP01_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.7,
+      "reviewsCount": 312
+    },
+    {
+      "id": 30,
+      "title": "Space Explorer Bestseller Watch",
+      "description": "Cosmic-themed kids' watch with astronomical animations, space exploration mini-games, and glow-in-the-dark constellation design. Sparks curiosity about the universe.",
+      "category": "kids",
+      "subcategory": "bestsellers",
+      "price": 69.5,
+      "originalPrice": 89.99,
+      "discount": 23,
+      "stock": 75,
+      "images": [
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw92f07eb8/images/Titan/Catalog/26026PP05W_1.jpg?sw=600&sh=600",
+        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc963472b/images/Titan/Catalog/26026PP05W_3.jpg?sw=600&sh=600"
+      ],
+      "rating": 4.6,
+      "reviewsCount": 276
+    }
+  ],
+  "carts": [
+    {
+      "userId": 4,
+      "items": [
+        {
+          "productId": 4,
+          "quantity": 1
+        }
+      ],
+      "id": 2
+    },
+    {
+      "userId": 5,
+      "items": [],
+      "id": 3
+    }
+  ],
+  "orders": [],
+  "reviews": []
+}

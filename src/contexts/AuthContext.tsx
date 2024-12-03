@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import bcrypt from 'bcryptjs';
 import { getUsers } from '../services/userService';
 import { User } from '../models/User_types';
 
 type AuthContextType = {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
@@ -21,29 +22,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await getUsers();
-        setUsers(fetchedUsers);
+  const fetchUsers = useCallback(async () => {
+    try {
+      const fetchedUsers = await getUsers();
+      setUsers(fetchedUsers);
 
-        const storedRole = sessionStorage.getItem('USER_ROLE');
-        const storedEmail = sessionStorage.getItem('USER_EMAIL');
+      const storedRole = sessionStorage.getItem('USER_ROLE');
+      const storedEmail = sessionStorage.getItem('USER_EMAIL');
 
-        if (storedRole && storedEmail) {
-          const foundUser = fetchedUsers.find(u => u.email === storedEmail && u.role === storedRole);
-          if (foundUser) setUser(foundUser);
-        }
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-        setIsLoading(false);
+      if (storedRole && storedEmail) {
+        const foundUser = fetchedUsers.find(u => u.email === storedEmail && u.role === storedRole);
+        if (foundUser) setUser(foundUser);
       }
-    };
 
-    fetchUsers();
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     const foundUser = users.find(u => u.email === email);
@@ -76,6 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+
   const isAdmin = user?.role === 'admin';
   const isCustomer = user?.role === 'customer';
   const isLoggedIn = !!user;  
@@ -84,6 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         login,
         logout,
         isLoading,
@@ -105,3 +108,4 @@ export const useAuth = () => {
 };
 
 export default AuthContext;
+

@@ -25,6 +25,12 @@ const UserManagement: React.FC = () => {
 
   const handleAddUser = async (userData: Omit<User, 'id'>) => {
     try {
+      if (userData.addresses && userData.addresses.length > 0) {
+        userData.addresses[0].isDefault = true;
+        for (let i = 1; i < userData.addresses.length; i++) {
+          userData.addresses[i].isDefault = false;
+        }
+      }
       await createUser(userData);
       fetchUsers();
       setIsModalOpen(false);
@@ -35,6 +41,17 @@ const UserManagement: React.FC = () => {
 
   const handleUpdateUser = async (id: number, userData: Partial<User>) => {
     try {
+      if (userData.addresses && userData.addresses.length > 0) {
+        const defaultAddressIndex = userData.addresses.findIndex(a => a.isDefault);
+        if (defaultAddressIndex === -1) {
+          userData.addresses[0].isDefault = true;
+        }
+        for (let i = 0; i < userData.addresses.length; i++) {
+          if (i !== defaultAddressIndex) {
+            userData.addresses[i].isDefault = false;
+          }
+        }
+      }
       await updateUser(id, userData);
       fetchUsers();
       setIsModalOpen(false);
@@ -55,8 +72,22 @@ const UserManagement: React.FC = () => {
 
   const columns: Column<User>[] = [
     { key: 'username', header: 'Username' },
+    { key: 'email', header: 'Email' },
     { key: 'role', header: 'Role' },
     { key: 'balance', header: 'Balance' },
+    {
+      key: 'addresses',
+      header: 'Addresses',
+      render: (user: User) => (
+        <div>
+          {user.addresses && user.addresses.length > 0 ? (
+            <span>{user.addresses.length} address</span>
+          ) : (
+            <span>No address</span>
+          )}
+        </div>
+      ),
+    },
     {
       key: 'action',
       header: 'Action',
@@ -83,11 +114,14 @@ const UserManagement: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
       <button
         className="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          setEditingUser(null);
+          setIsModalOpen(true);
+        }}
       >
         Add User
       </button>
@@ -118,4 +152,5 @@ const UserManagement: React.FC = () => {
 };
 
 export default UserManagement;
+
 
