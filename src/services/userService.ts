@@ -1,7 +1,18 @@
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 import { Address, User } from '../models/User_types';
 import { config } from '../utils/config';
+
+
+const SECRET_KEY = 'your-secret-key-here';
+
+function hashPassword(password: string): string {
+  return CryptoJS.SHA256(password + SECRET_KEY).toString();
+}
+
+function verifyPassword(inputPassword: string, storedHash: string): boolean {
+  return hashPassword(inputPassword) === storedHash;
+}
 
 const API_URL = `${config.BASE_URL}/users`;
 
@@ -32,10 +43,9 @@ export async function createUser(userData: Omit<User, 'id'>): Promise<User> {
       throw new Error('Email already in use');
     }
 
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
     const response = await axios.post(API_URL, { 
       ...userData, 
-      password: hashedPassword,
+      password: hashPassword(userData.password),
       role: userData.role || 'customer',
     });
     return response.data;
@@ -48,7 +58,7 @@ export async function createUser(userData: Omit<User, 'id'>): Promise<User> {
 export async function updateUser(id: number, userData: Partial<User>): Promise<User> {
   try {
     if (userData.password) {
-      userData.password = await bcrypt.hash(userData.password, 10);
+      userData.password = hashPassword(userData.password);
     }
     const response = await axios.patch(`${API_URL}/${id}`, userData);
     return response.data;
@@ -103,3 +113,6 @@ export async function addAddress(userId: number, address: Omit<Address, 'id'>): 
     throw error;
   }
 }
+
+
+export { verifyPassword };

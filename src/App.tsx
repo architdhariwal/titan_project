@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { Toaster } from 'react-hot-toast'; 
 import { AuthProvider } from "./contexts/AuthContext";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Register";
+import Login from "./components/Login";
+import Signup from "./components/Register";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ThankYou from "./pages/ThankYou";

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import bcrypt from 'bcryptjs';
-import { getUsers } from '../services/userService';
+import { getUsers, verifyPassword } from '../services/userService';
 import { User } from '../models/User_types';
 
 type AuthContextType = {
@@ -11,7 +10,7 @@ type AuthContextType = {
   isLoading: boolean;
   isAdmin: boolean;
   isCustomer: boolean;
-  isLoggedIn: boolean;  
+  isLoggedIn: boolean;
   refreshUsers: () => Promise<void>;
 };
 
@@ -49,14 +48,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string): Promise<boolean> => {
     const foundUser = users.find(u => u.email === email);
 
-    if (foundUser) {
-      const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-      if (isPasswordValid) {
-        setUser(foundUser);
-        sessionStorage.setItem('USER_EMAIL', email);
-        sessionStorage.setItem('USER_ROLE', foundUser.role);
-        return true;
-      }
+    if (foundUser && verifyPassword(password, foundUser.password)) {
+      setUser(foundUser);
+      sessionStorage.setItem('USER_EMAIL', email);
+      sessionStorage.setItem('USER_ROLE', foundUser.role);
+      return true;
     }
 
     return false;
@@ -77,10 +73,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-
   const isAdmin = user?.role === 'admin';
   const isCustomer = user?.role === 'customer';
-  const isLoggedIn = !!user;  
+  const isLoggedIn = !!user;
 
   return (
     <AuthContext.Provider
@@ -92,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         isAdmin,
         isCustomer,
-        isLoggedIn,  
+        isLoggedIn,
         refreshUsers,
       }}
     >
@@ -108,4 +103,3 @@ export const useAuth = () => {
 };
 
 export default AuthContext;
-

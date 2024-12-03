@@ -9,7 +9,7 @@ const API_URL = `${config.BASE_URL}/carts`;
 export async function getCart(userId: number): Promise<Cart> {
   try {
     const response = await axios.get(`${API_URL}?userId=${userId}`);
-    console.log("response--->",response.data[0]);
+    // console.log("response--->",response.data[0]);
     return response.data[0] || { userId, items: [], id: null };
 
   } catch (error) {
@@ -20,7 +20,6 @@ export async function getCart(userId: number): Promise<Cart> {
 
 export async function addToCart(userId: number, item: CartItem): Promise<Cart> {
   try {
-    // Check product availability and stock
     const product = await getProductById(item.productId);
     if (product.stock < item.quantity) {
       throw new Error('Insufficient stock');
@@ -28,28 +27,24 @@ export async function addToCart(userId: number, item: CartItem): Promise<Cart> {
 
     const cart = await getCart(userId);
 
-    // If cart doesn't exist, create new cart
     if (!cart.id) {
       const newCart = { userId, items: [item] };
       const response = await axios.post(API_URL, newCart);
       return response.data;
     }
 
-    // Check if product already in cart
     const existingItemIndex = cart.items.findIndex(
       cartItem => cartItem.productId === item.productId
     );
 
     let updatedItems;
     if (existingItemIndex !== -1) {
-      // Update quantity of existing item
       updatedItems = cart.items.map((cartItem, index) =>
         index === existingItemIndex
           ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
           : cartItem
       );
     } else {
-      // Add new item to cart
       updatedItems = [...cart.items, item];
     }
 
@@ -92,7 +87,6 @@ export async function updateCartItemQuantity(userId: number, productId: number, 
     const cart = await getCart(userId);
     if (!cart.id) throw new Error('Cart not found');
 
-    // Check product availability and stock
     const product = await getProductById(productId);
     if (product.stock < newQuantity) {
       throw new Error('Insufficient stock');
@@ -102,7 +96,6 @@ export async function updateCartItemQuantity(userId: number, productId: number, 
       item.productId === productId ? { ...item, quantity: newQuantity } : item
     );
 
-    // Remove the item if the new quantity is 0
     const filteredItems = updatedItems.filter(item => item.quantity > 0);
 
     const response = await axios.patch(`${API_URL}/${cart.id}`, { items: filteredItems });

@@ -103,6 +103,7 @@ const MultiCardCarousel: React.FC = () => {
         </div>
 
         <button 
+         aria-label="Previous" 
           className={`absolute left-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
             ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handlePrev}
@@ -111,6 +112,7 @@ const MultiCardCarousel: React.FC = () => {
           <ChevronLeft className="text-gray-700" />
         </button>
         <button 
+         aria-label="Next" 
           className={`absolute right-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
             ${currentIndex >= products.length - 3 ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handleNext}

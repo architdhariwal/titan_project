@@ -1,53 +1,33 @@
 {
   "users": [
     {
-      "username": "admin123",
+      "username": "admin",
       "email": "admin@gmail.com",
-      "password": "$2a$10$JTIfEATZAymd7dxVN0WT..27sAvgN1dCS6xQwFFj7gsNzu8yCuRwG",
+      "password": "e43c5435b95cb4106551576adf1168136aee3d11a02e4335859b51981a299993",
       "role": "admin",
-      "balance": 500,
-      "id": 3
+      "balance": 5000,
+      "id": 6
     },
     {
       "username": "archit",
       "email": "archit@gmail.com",
-      "password": "$2a$10$Hb6nSmBT1j.XzZCFXIEcxu45NyVIC8jClmSIB.IqDlhtUAjpPaNR6",
-      "role": "customer",
-      "balance": 7165.05,
-      "id": 4,
-      "addresses": [
-        {
-          "street": "street 2",
-          "city": "Haridwar",
-          "state": "Uttarakhand",
-          "zipCode": "112233",
-          "country": "India",
-          "isDefault": false,
-          "id": 1
-        },
-        {
-          "street": "gali 4",
-          "city": "bangalore",
-          "state": "karnataka",
-          "zipCode": "556677",
-          "country": "India",
-          "isDefault": false,
-          "id": 2
-        }
-      ]
+      "password": "3f131b472a2d600683340055d39af99c3ddb0ee7850d0dbfa54ed2d77f8924c7",
+      "role": "admin",
+      "balance": 5000,
+      "id": 7
     },
     {
       "username": "dummy",
       "email": "dummy@gmail.com",
-      "password": "$2a$10$NPsJKxGaQTjKd3EVC2ZitelUVJ7bE7Pd/uhJtiz3TgblmIxDhYj5S",
+      "password": "73305a05fe7fce2c10cc6088210aa8b35d0247d57007bd5749cd417492dded7a",
       "role": "customer",
-      "balance": 3520.0400000000004,
-      "id": 5,
+      "balance": 4500.01,
+      "id": 8,
       "addresses": [
         {
-          "street": "new street",
-          "city": "bangalore",
-          "state": "Karnataka",
+          "street": "street2",
+          "city": "haridwar",
+          "state": "uttarakhand",
           "zipCode": "112233",
           "country": "India",
           "isDefault": false,
@@ -583,6 +563,11 @@
       "userId": 5,
       "items": [],
       "id": 3
+    },
+    {
+      "userId": 8,
+      "items": [],
+      "id": 4
     }
   ],
   "orders": [],
