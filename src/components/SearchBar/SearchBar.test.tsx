@@ -2,11 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import SearchBar from './SearchBar';
-import { getProductsByTitle } from '../services/productService';
+import { getProductsByTitle } from '../../services/productService';
 import { useNavigate } from 'react-router-dom';
 
 
-jest.mock('../services/productService');
+jest.mock('../../services/productService');
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));

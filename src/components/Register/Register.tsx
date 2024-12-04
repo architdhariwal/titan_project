@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { createUser } from '../services/userService';
-import { User } from '../models/User_types';
-import { useAuth } from '../contexts/AuthContext';
-import { showToast } from '../utils/toastUtility';
+import { createUser } from '../../services/userService';
+import { User } from '../../models/User_types';
+import { useAuth } from '../../contexts/AuthContext';
+import { showToast } from '../../utils/toastUtility';
 import { Eye, EyeOff } from 'lucide-react';
-import backgroundImage from "../assets/watch_background.webp"
+import backgroundImage from "../../assets/watch_background.webp"
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');

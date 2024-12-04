@@ -8,7 +8,7 @@ import {
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../contexts/AuthContext";
 import { getCart } from "../services/cartService"; 
-import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar/SearchBar";
 
 
 interface NavItem {

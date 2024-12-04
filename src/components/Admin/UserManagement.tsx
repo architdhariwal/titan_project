@@ -1,156 +1,100 @@
 import React, { useState, useEffect } from 'react';
-import { User } from '../../models/User_types';
 import { getUsers, createUser, updateUser, deleteUser } from '../../services/userService';
-import PaginatedTable, { Column } from './PaginatedTable';
-import AddUserForm from './AddUserForm';
-import Modal from './Modal';
+import UserTable from './UserTable';
+import UserForm from './UserForm';
+import { User } from '../../models/User_types';
 
 const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
-    try {
-      const fetchedUsers = await getUsers();
-      setUsers(fetchedUsers);
-    } catch (error) {
-      console.error('Failed to fetch users:', error);
-    }
+    const fetchedUsers = await getUsers();
+    setUsers(fetchedUsers);
   };
 
   const handleAddUser = async (userData: Omit<User, 'id'>) => {
-    try {
-      if (userData.addresses && userData.addresses.length > 0) {
-        userData.addresses[0].isDefault = true;
-        for (let i = 1; i < userData.addresses.length; i++) {
-          userData.addresses[i].isDefault = false;
-        }
-      }
-      await createUser(userData);
-      fetchUsers();
-      setIsModalOpen(false);
-    } catch (error) {
-      console.error('Failed to add user:', error);
-    }
+    await createUser(userData);
+    fetchUsers();
+    setIsFormOpen(false);
   };
 
   const handleUpdateUser = async (id: number, userData: Partial<User>) => {
-    try {
-      if (userData.addresses && userData.addresses.length > 0) {
-        const defaultAddressIndex = userData.addresses.findIndex(a => a.isDefault);
-        if (defaultAddressIndex === -1) {
-          userData.addresses[0].isDefault = true;
-        }
-        for (let i = 0; i < userData.addresses.length; i++) {
-          if (i !== defaultAddressIndex) {
-            userData.addresses[i].isDefault = false;
-          }
-        }
-      }
-      await updateUser(id, userData);
-      fetchUsers();
-      setIsModalOpen(false);
-      setEditingUser(null);
-    } catch (error) {
-      console.error('Failed to update user:', error);
-    }
+    await updateUser(id, userData);
+    fetchUsers();
+    setIsFormOpen(false);
+    setEditingUser(null);
   };
 
   const handleDeleteUser = async (id: number) => {
-    try {
-      await deleteUser(id);
-      fetchUsers();
-    } catch (error) {
-      console.error('Failed to delete user:', error);
-    }
+    await deleteUser(id);
+    fetchUsers();
   };
 
-  const columns: Column<User>[] = [
-    { key: 'username', header: 'Username' },
-    { key: 'email', header: 'Email' },
-    { key: 'role', header: 'Role' },
-    { key: 'balance', header: 'Balance' },
-    {
-      key: 'addresses',
-      header: 'Addresses',
-      render: (user: User) => (
-        <div>
-          {user.addresses && user.addresses.length > 0 ? (
-            <span>{user.addresses.length} address</span>
-          ) : (
-            <span>No address</span>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: 'action',
-      header: 'Action',
-      render: (user: User) => (
-        <div>
-          <button
-            className="mr-2 text-blue-500 hover:text-blue-700"
-            onClick={() => {
-              setEditingUser(user);
-              setIsModalOpen(true);
-            }}
-          >
-            Update
-          </button>
-          <button
-            className="text-red-500 hover:text-red-700"
-            onClick={() => handleDeleteUser(user.id)}
-          >
-            Delete
-          </button>
-        </div>
-      ),
-    },
-  ];
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
-      <button
-        className="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        onClick={() => {
-          setEditingUser(null);
-          setIsModalOpen(true);
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Manage Users</h2>
+        <button
+          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          onClick={() => setIsFormOpen(true)}
+        >
+          Add User
+        </button>
+      </div>
+      <UserTable
+        users={currentUsers}
+        onEdit={(user) => {
+          setEditingUser(user);
+          setIsFormOpen(true);
         }}
-      >
-        Add User
-      </button>
-      <PaginatedTable data={users} columns={columns} itemsPerPage={5} />
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setEditingUser(null);
-        }}
-        title={editingUser ? 'Edit User' : 'Add User'}
-      >
-        <AddUserForm
+        onDelete={handleDeleteUser}
+      />
+      <div className="mt-4 flex justify-center">
+        <button
+          className="mx-1 px-3 py-1 bg-gray-200 rounded"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="mx-2">
+          Page {currentPage} of {Math.ceil(users.length / usersPerPage)}
+        </span>
+        <button
+          className="mx-1 px-3 py-1 bg-gray-200 rounded"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(users.length / usersPerPage)))}
+          disabled={currentPage === Math.ceil(users.length / usersPerPage)}
+        >
+          Next
+        </button>
+      </div>
+      {isFormOpen && (
+        <UserForm
           user={editingUser}
           onSubmit={(userData) =>
-            editingUser
-              ? handleUpdateUser(editingUser.id, userData)
-              : handleAddUser(userData as Omit<User, 'id'>)
+            editingUser ? handleUpdateUser(editingUser.id, userData) : handleAddUser(userData as Omit<User, 'id'>)
           }
           onCancel={() => {
-            setIsModalOpen(false);
+            setIsFormOpen(false);
             setEditingUser(null);
           }}
         />
-      </Modal>
+      )}
     </div>
   );
 };
 
 export default UserManagement;
-
 

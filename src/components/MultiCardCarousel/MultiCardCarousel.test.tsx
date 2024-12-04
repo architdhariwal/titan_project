@@ -3,10 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MemoryRouter } from 'react-router-dom';
 import MultiCardCarousel from './MultiCardCarousel';
-import { getProductsByCategory } from '../services/productService';
+import { getProductsByCategory } from '../../services/productService';
 
 
-jest.mock('../services/productService');
+jest.mock('../../services/productService');
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),

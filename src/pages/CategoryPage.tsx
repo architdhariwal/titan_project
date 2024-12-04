@@ -14,7 +14,6 @@ const CategoryPage: React.FC = () => {
       if (slug) {
         try {
           const data = await getProductsByCategory(slug);
-          // console.log("slug---------->",slug);
           setProducts(data);
           setIsLoading(false);
         } catch (err) {

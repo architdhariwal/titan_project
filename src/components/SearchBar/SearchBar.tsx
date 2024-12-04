@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProductsByTitle } from "../services/productService";
+import { getProductsByTitle } from "../../services/productService";
 import { FiSearch, FiMic } from "react-icons/fi";
-import { Product } from "../models/Product_types";
+import { Product } from "../../models/Product_types";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");

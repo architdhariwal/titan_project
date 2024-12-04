@@ -9,7 +9,6 @@ const API_URL = `${config.BASE_URL}/carts`;
 export async function getCart(userId: number): Promise<Cart> {
   try {
     const response = await axios.get(`${API_URL}?userId=${userId}`);
-    // console.log("response--->",response.data[0]);
     return response.data[0] || { userId, items: [], id: null };
 
   } catch (error) {

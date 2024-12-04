@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Card, { CardProps } from './Card';
-import { useNavigate } from 'react-router-dom';
-import { getProductsByCategory } from '../services/productService';
-
+import React, { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Card, { CardProps } from "../Card/Card";
+import { useNavigate } from "react-router-dom";
+import { getProductsByCategory } from "../../services/productService";
 
 const MultiCardCarousel: React.FC = () => {
   const [products, setProducts] = useState<CardProps[]>([]);
@@ -16,24 +15,29 @@ const MultiCardCarousel: React.FC = () => {
     const fetchProducts = async () => {
       try {
         setIsLoading(true);
-        const fetchedProducts = await getProductsByCategory('men', 'bestsellers');
-        
-        const transformedProducts: CardProps[] = fetchedProducts.map(product => ({
-          id: product.id,
-          images: product.images,
-          title: product.title,
-          category: `${product.category} ${product.subcategory}`,
-          price: `₹${product.price.toFixed(2)}`,
-          originalPrice: `₹${product.originalPrice.toFixed(2)}`,
-          discount: product.discount,
-          rating: product.rating,
-          reviewsCount: product.reviewsCount
-        }));
+        const fetchedProducts = await getProductsByCategory(
+          "men",
+          "bestsellers"
+        );
 
-        setProducts(transformedProducts.slice(0, 8)); 
+        const transformedProducts: CardProps[] = fetchedProducts.map(
+          (product) => ({
+            id: product.id,
+            images: product.images,
+            title: product.title,
+            category: `${product.category} ${product.subcategory}`,
+            price: `₹${product.price.toFixed(2)}`,
+            originalPrice: `₹${product.originalPrice.toFixed(2)}`,
+            discount: product.discount,
+            rating: product.rating,
+            reviewsCount: product.reviewsCount,
+          })
+        );
+
+        setProducts(transformedProducts.slice(0, 8));
         setIsLoading(false);
       } catch (err) {
-        setError('Failed to fetch products');
+        setError("Failed to fetch products");
         setIsLoading(false);
       }
     };
@@ -71,18 +75,20 @@ const MultiCardCarousel: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h3 className="text-2xl font-bold mb-6 text-gray-800">Bestselling Items</h3>
+      <h3 className="text-2xl font-bold mb-6 text-gray-800">
+        Bestselling Items
+      </h3>
       <div className="relative">
         <div className="overflow-hidden">
-          <div 
+          <div
             className="flex transition-transform duration-300 ease-in-out space-x-6"
-            style={{ 
-              transform: `translateX(-${currentIndex * (288 + 24)}px)` 
+            style={{
+              transform: `translateX(-${currentIndex * (288 + 24)}px)`,
             }}
           >
             {products.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className="flex-shrink-0 w-80 cursor-pointer"
                 onClick={() => handleCardClick(item.id)}
               >
@@ -102,19 +108,23 @@ const MultiCardCarousel: React.FC = () => {
           </div>
         </div>
 
-        <button 
-         aria-label="Previous" 
+        <button
+          aria-label="Previous"
           className={`absolute left-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
-            ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handlePrev}
           disabled={currentIndex === 0}
         >
           <ChevronLeft className="text-gray-700" />
         </button>
-        <button 
-         aria-label="Next" 
+        <button
+          aria-label="Next"
           className={`absolute right-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
-            ${currentIndex >= products.length - 3 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            ${
+              currentIndex >= products.length - 3
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
           onClick={handleNext}
           disabled={currentIndex >= products.length - 3}
         >
@@ -126,4 +136,3 @@ const MultiCardCarousel: React.FC = () => {
 };
 
 export default MultiCardCarousel;
-

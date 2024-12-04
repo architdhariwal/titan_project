@@ -1,42 +1,21 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Admin/Navbar';
+import Sidebar from '../components/Admin/Sidebar';
 import UserManagement from '../components/Admin/UserManagement';
 import ProductManagement from '../components/Admin/ProductManagement';
 
 const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'users' | 'products'>('users');
+  const [activeSection, setActiveSection] = useState<'users' | 'products'>('users');
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <button
-            className={`mr-4 px-4 py-2 rounded ${
-              activeTab === 'users' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-            onClick={() => setActiveTab('users')}
-          >
-            Manage Users
-          </button>
-          <button
-            className={`px-4 py-2 rounded ${
-              activeTab === 'products' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-            onClick={() => setActiveTab('products')}
-          >
-            Manage Products
-          </button>
-        </div>
-
-        <div>
-          {activeTab === 'users' && <UserManagement />}
-          {activeTab === 'products' && <ProductManagement />}
-        </div>
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <div className="flex-1 overflow-auto p-8">
+        <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        {activeSection === 'users' ? <UserManagement /> : <ProductManagement />}
       </div>
     </div>
   );
 };
 
-
 export default AdminDashboard;
+

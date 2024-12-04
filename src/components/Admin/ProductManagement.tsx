@@ -1,117 +1,99 @@
 import React, { useState, useEffect } from 'react';
-import { Product } from '../../models/Product_types';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../../services/productService';
-import PaginatedTable, { Column } from './PaginatedTable';
-import ProductFormDrawer from './ProductFormDrawer';
+import ProductGrid from './ProductGrid';
+import ProductForm from './ProductForm';
+import { Product } from '../../models/Product_types';
 
 const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
-    try {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    } catch (error) {
-      console.error('Failed to fetch products:', error);
-    }
+    const fetchedProducts = await getProducts();
+    setProducts(fetchedProducts);
   };
 
   const handleAddProduct = async (productData: Omit<Product, 'id'>) => {
-    try {
-      await createProduct(productData);
-      fetchProducts();
-      setIsDrawerOpen(false);
-    } catch (error) {
-      console.error('Failed to add product:', error);
-    }
+    await createProduct(productData);
+    fetchProducts();
+    setIsFormOpen(false);
   };
 
-  const handleUpdateProduct = async (id: number, productData: Partial<Product>) => {
-    try {
-      await updateProduct(id, productData);
-      fetchProducts();
-      setIsDrawerOpen(false);
-      setEditingProduct(null);
-    } catch (error) {
-      console.error('Failed to update product:', error);
-    }
+  const handleUpdateProduct = async (id: number, productData: Omit<Product, 'id'>) => {
+    await updateProduct(id, productData);
+    fetchProducts();
+    setIsFormOpen(false);
+    setEditingProduct(null);
   };
 
   const handleDeleteProduct = async (id: number) => {
-    try {
-      await deleteProduct(id);
-      fetchProducts();
-    } catch (error) {
-      console.error('Failed to delete product:', error);
-    }
+    await deleteProduct(id);
+    fetchProducts();
   };
 
-  const columns: Column<Product>[] = [
-    { key: 'title', header: 'Title' },
-    { key: 'description', header: 'Description' },
-    { key: 'category', header: 'Category' },
-    { key: 'price', header: 'Price' },
-    { key: 'discount', header: 'Discount' },
-    { key: 'stock', header: 'Stock' },
-    { key: 'rating', header: 'Rating' },
-    { key: 'reviewsCount', header: 'Reviews Count' },
-    {
-      key: 'action',
-      header: 'Action',
-      render: (product: Product) => (
-        <div>
-          <button
-            className="mr-2 text-blue-500 hover:text-blue-700"
-            onClick={() => {
-              setEditingProduct(product);
-              setIsDrawerOpen(true);
-            }}
-          >
-            Update
-          </button>
-          <button
-            className="text-red-500 hover:text-red-700"
-            onClick={() => handleDeleteProduct(product.id)}
-          >
-            Delete
-          </button>
-        </div>
-      ),
-    },
-  ];
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Manage Products</h2>
-      <button
-        className="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        onClick={() => {
-          setEditingProduct(null);
-          setIsDrawerOpen(true);
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Manage Products</h2>
+        <button
+          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          onClick={() => setIsFormOpen(true)}
+        >
+          Add Product
+        </button>
+      </div>
+      <ProductGrid
+        products={currentProducts}
+        onEdit={(product) => {
+          setEditingProduct(product);
+          setIsFormOpen(true);
         }}
-      >
-        Add Product
-      </button>
-      <PaginatedTable data={products} columns={columns} itemsPerPage={5} />
-      <ProductFormDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => {
-          setIsDrawerOpen(false);
-          setEditingProduct(null);
-        }}
-        product={editingProduct}
-        onSubmit={(productData) =>
-          editingProduct
-            ? handleUpdateProduct(editingProduct.id, productData)
-            : handleAddProduct(productData)
-        }
+        onDelete={handleDeleteProduct}
       />
+      <div className="mt-4 flex justify-center">
+        <button
+          className="mx-1 px-3 py-1 bg-gray-200 rounded"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="mx-2">
+          Page {currentPage} of {Math.ceil(products.length / productsPerPage)}
+        </span>
+        <button
+          className="mx-1 px-3 py-1 bg-gray-200 rounded"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(products.length / productsPerPage)))}
+          disabled={currentPage === Math.ceil(products.length / productsPerPage)}
+        >
+          Next
+        </button>
+      </div>
+      {isFormOpen && (
+        <ProductForm
+          product={editingProduct}
+          onSubmit={(productData) =>
+            editingProduct
+              ? handleUpdateProduct(editingProduct.id, productData)
+              : handleAddProduct(productData)
+          }
+          onCancel={() => {
+            setIsFormOpen(false);
+            setEditingProduct(null);
+          }}
+        />
+      )}
     </div>
   );
 };

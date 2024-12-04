@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Filter from '../components/Filter';
-import Card from '../components/Card';
-import { Product } from '../models/Product_types';
-import { getProductsByCategory, getProducts } from '../services/productService';
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Filter from "../components/Filter/Filter";
+import Card from "../components/Card/Card";
+import { Product } from "../models/Product_types";
+import { getProductsByCategory, getProducts } from "../services/productService";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -13,8 +13,8 @@ const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedFilter, setSelectedFilter] = useState('');
-  const [sortOption, setSortOption] = useState('all');
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [sortOption, setSortOption] = useState("all");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +22,7 @@ const Products: React.FC = () => {
     try {
       setLoading(true);
       const searchParams = new URLSearchParams(location.search);
-      const category = searchParams.get('category');
+      const category = searchParams.get("category");
 
       if (category) {
         const data = await getProductsByCategory(category);
@@ -31,10 +31,10 @@ const Products: React.FC = () => {
       } else {
         const data = await getProducts();
         setProducts(data);
-        setSelectedFilter('');
+        setSelectedFilter("");
       }
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
@@ -55,19 +55,20 @@ const Products: React.FC = () => {
     setCurrentPage(1);
   };
 
-
   const sortedProducts = React.useMemo(() => {
     let sorted = [...products];
 
     switch (sortOption) {
-      case 'popularity':
+      case "popularity":
         return sorted.filter((product) => product.rating > 4.0);
-      case 'highToLow':
+      case "highToLow":
         return sorted.sort((a, b) => b.price - a.price);
-      case 'lowToHigh':
+      case "lowToHigh":
         return sorted.sort((a, b) => a.price - b.price);
-      case 'bestSellers':
-        return sorted.filter((product) => product.subcategory === 'bestsellers');
+      case "bestSellers":
+        return sorted.filter(
+          (product) => product.subcategory === "bestsellers"
+        );
       default:
         return sorted;
     }
@@ -79,26 +80,31 @@ const Products: React.FC = () => {
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const displayedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const displayedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-bold">
-              {selectedFilter 
-                ? `${selectedFilter.toUpperCase()} Products` 
-                : 'All Products'}
+              {selectedFilter
+                ? `${selectedFilter.toUpperCase()} Products`
+                : "All Products"}
             </h1>
-            <span className="text-gray-600">{filteredProducts.length} items</span>
+            <span className="text-gray-600">
+              {filteredProducts.length} items
+            </span>
           </div>
 
-          <Filter 
-            onFilterChange={handleFilterChange} 
-            selectedFilter={selectedFilter} 
+          <Filter
+            onFilterChange={handleFilterChange}
+            selectedFilter={selectedFilter}
             onSortChange={handleSortChange}
           />
 
@@ -139,34 +145,43 @@ const Products: React.FC = () => {
                   {totalPages > 1 && (
                     <div className="flex justify-center items-center mt-12 gap-2">
                       <button
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        onClick={() =>
+                          setCurrentPage((prev) => Math.max(prev - 1, 1))
+                        }
                         disabled={currentPage === 1}
                         className="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50"
                       >
                         ←
                       </button>
-                      
-                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                        const pageNum = i + 1;
-                        return (
-                          <button
-                            key={pageNum}
-                            onClick={() => setCurrentPage(pageNum)}
-                            className={`px-4 py-2 rounded-md ${
-                              currentPage === pageNum
-                                ? 'bg-black text-white'
-                                : 'hover:bg-gray-100'
-                            }`}
-                          >
-                            {pageNum}
-                          </button>
-                        );
-                      })}
-                      
+
+                      {Array.from(
+                        { length: Math.min(5, totalPages) },
+                        (_, i) => {
+                          const pageNum = i + 1;
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`px-4 py-2 rounded-md ${
+                                currentPage === pageNum
+                                  ? "bg-black text-white"
+                                  : "hover:bg-gray-100"
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        }
+                      )}
+
                       {totalPages > 5 && <span className="px-2">...</span>}
-                      
+
                       <button
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        onClick={() =>
+                          setCurrentPage((prev) =>
+                            Math.min(prev + 1, totalPages)
+                          )
+                        }
                         disabled={currentPage === totalPages}
                         className="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50"
                       >

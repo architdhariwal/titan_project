@@ -1,16 +1,14 @@
-import React from 'react';
-import Header from '../components/Header';
-import HeroCarousel from '../components/HeroCarousel';
-import ProductBanner from '../components/ProductBanner';
-import CategoryCarousel from '../components/CategorySection';
-import MultiCardCarousel from '../components/MultiCardCarousel';
-import Footer from '../components/Footer';
-import RunningText from '../components/RunningText';
-import { categoryItems } from '../utils/HomeData';
-
+import React from "react";
+import Header from "../components/Header";
+import HeroCarousel from "../components/HeroCarousel/HeroCarousel";
+import ProductBanner from "../components/ProductBanner";
+import CategoryCarousel from "../components/CategorySection";
+import MultiCardCarousel from "../components/MultiCardCarousel/MultiCardCarousel";
+import Footer from "../components/Footer";
+import RunningText from "../components/RunningText";
+import { categoryItems } from "../utils/HomeData";
 
 const Home: React.FC = () => {
-
   return (
     <>
       <RunningText />
@@ -44,4 +42,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-

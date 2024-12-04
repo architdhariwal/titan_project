@@ -2,20 +2,20 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import RegisterPage from './Register';
-import { useAuth } from '../contexts/AuthContext';
-import { createUser } from '../services/userService';
-import { showToast } from '../utils/toastUtility';
+import { useAuth } from '../../contexts/AuthContext';
+import { createUser } from '../../services/userService';
+import { showToast } from '../../utils/toastUtility';
 
 
-jest.mock('../contexts/AuthContext', () => ({
+jest.mock('../../contexts/AuthContext', () => ({
   useAuth: jest.fn(),
 }));
 
-jest.mock('../services/userService', () => ({
+jest.mock('../../services/userService', () => ({
   createUser: jest.fn(),
 }));
 
-jest.mock('../utils/toastUtility', () => ({
+jest.mock('../../utils/toastUtility', () => ({
   showToast: {
     success: jest.fn(),
     error: jest.fn(),
