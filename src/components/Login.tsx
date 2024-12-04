@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
 import { showToast } from '../utils/toastUtility';
+import backgroundImage from "../assets/watch_background.webp"
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -44,12 +45,15 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-titan-bg-theme">
+    <div 
+    className="flex items-center justify-center h-screen bg-titan-bg-theme"
+    style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <form 
         onSubmit={handleLogin} 
-        className="bg-amber-50 p-8 rounded shadow-md w-96"
+        className="bg-white p-8 rounded shadow-md w-96"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-amber-600">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Login</h2>
         {error && (
           <div className="text-red-500 mb-4 text-sm">{error}</div>
         )}
@@ -78,13 +82,13 @@ const LoginPage: React.FC = () => {
         </div>
         <button 
           type="submit" 
-          className="w-full bg-amber-600 text-white p-3 rounded hover:bg-amber-700"
+          className="w-full bg-gray-800 text-white p-3 rounded hover:bg-gray-900"
         >
           Login
         </button>
         <p className="text-center mt-4 text-sm">
           Don't have an account?{' '}
-          <Link to="/register" className="text-amber-600 hover:underline">
+          <Link to="/register" className="text-blue-600 hover:underline">
             Register
           </Link>
         </p>

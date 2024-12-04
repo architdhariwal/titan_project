@@ -12,7 +12,7 @@
       "username": "archit",
       "email": "archit@gmail.com",
       "password": "3f131b472a2d600683340055d39af99c3ddb0ee7850d0dbfa54ed2d77f8924c7",
-      "role": "admin",
+      "role": "customer",
       "balance": 5000,
       "id": 7
     },
@@ -21,14 +21,14 @@
       "email": "dummy@gmail.com",
       "password": "73305a05fe7fce2c10cc6088210aa8b35d0247d57007bd5749cd417492dded7a",
       "role": "customer",
-      "balance": 4500.01,
+      "balance": 4250.02,
       "id": 8,
       "addresses": [
         {
-          "street": "street2",
-          "city": "haridwar",
-          "state": "uttarakhand",
-          "zipCode": "112233",
+          "street": "street1",
+          "city": "bangalore",
+          "state": "Karnataka",
+          "zipCode": "122333",
           "country": "India",
           "isDefault": false,
           "id": 1
@@ -216,7 +216,7 @@
       "price": 404.99,
       "originalPrice": 515.99,
       "discount": 25,
-      "stock": 53,
+      "stock": 55,
       "images": [
         "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwa2b32768/images/Helios/Catalog/TH1792059_1.jpg?sw=360&sh=360",
         "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw8cb350ac/images/Helios/Catalog/TH1792059_3.jpg?sw=600&sh=600"
@@ -274,23 +274,6 @@
       ],
       "rating": 4.3,
       "reviewsCount": 350
-    },
-    {
-      "id": 15,
-      "title": "Celestial Diamond Elegance Watch",
-      "description": "Exquisite luxury timepiece adorned with precision-cut diamonds and a mother-of-pearl dial, epitomizing refined sophistication for the discerning woman.",
-      "category": "women",
-      "subcategory": "luxury",
-      "price": 2999.99,
-      "originalPrice": 3499.99,
-      "discount": 14,
-      "stock": 25,
-      "images": [
-        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwbf206129/images/Titan/Catalog/95262WM01_1.jpg?sw=360&sh=360",
-        "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw5fbbaa6b/images/Titan/Catalog/95262WM01_3.jpg?sw=600&sh=600"
-      ],
-      "rating": 4.9,
-      "reviewsCount": 87
     },
     {
       "id": 16,
@@ -549,21 +532,6 @@
     }
   ],
   "carts": [
-    {
-      "userId": 4,
-      "items": [
-        {
-          "productId": 4,
-          "quantity": 1
-        }
-      ],
-      "id": 2
-    },
-    {
-      "userId": 5,
-      "items": [],
-      "id": 3
-    },
     {
       "userId": 8,
       "items": [],

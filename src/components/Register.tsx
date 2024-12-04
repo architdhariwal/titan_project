@@ -6,6 +6,7 @@ import { User } from '../models/User_types';
 import { useAuth } from '../contexts/AuthContext';
 import { showToast } from '../utils/toastUtility';
 import { Eye, EyeOff } from 'lucide-react';
+import backgroundImage from "../assets/watch_background.webp"
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -61,11 +62,14 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-titan-bg-theme">
+    <div 
+    className="flex items-center justify-center h-screen bg-titan-bg-theme"
+    style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <Toaster />
 
-      <form onSubmit={handleSignUp} className="bg-amber-50 p-8 rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center text-amber-600">Register</h2>
+      <form onSubmit={handleSignUp} className="bg-white p-8 rounded shadow-md w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Register</h2>
         {error && <div className="text-red-500 mb-4 text-sm">{error}</div>}
         <input
           type="text"
@@ -97,12 +101,12 @@ const RegisterPage: React.FC = () => {
             {showPassword ? <Eye className="w-5 h-5 text-gray-500" /> : <EyeOff className="w-5 h-5 text-gray-500" />}
           </button>
         </div>
-        <button type="submit" className="w-full bg-amber-600 text-white p-3 rounded hover:bg-amber-700">
+        <button type="submit" className="w-full bg-gray-800 text-white p-3 rounded hover:bg-gray-900">
           Register
         </button>
         <p className="text-center mt-4 text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-amber-600 hover:underline">
+          <Link to="/login" className="text-blue-600 hover:underline">
             Login
           </Link>
         </p>
