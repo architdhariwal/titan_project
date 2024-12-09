@@ -162,7 +162,7 @@ const Header = () => {
         </div>
       )}
 
-      {isSticky && <div style={{ height: "80px" }}></div>}
+      {/* {isSticky && <div style={{ height: "80px" }}></div>} */}
     </nav>
   );
 };
