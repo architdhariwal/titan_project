@@ -46,7 +46,7 @@ const MultiCardCarousel: React.FC = () => {
   }, []);
 
   const handleNext = () => {
-    if (currentIndex < products.length - 3) {
+    if (currentIndex < products.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -121,12 +121,12 @@ const MultiCardCarousel: React.FC = () => {
           aria-label="Next"
           className={`absolute right-0 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full shadow-md p-2 z-10 
             ${
-              currentIndex >= products.length - 3
+              currentIndex >= products.length - 1
                 ? "opacity-50 cursor-not-allowed"
                 : ""
             }`}
           onClick={handleNext}
-          disabled={currentIndex >= products.length - 3}
+          disabled={currentIndex >= products.length - 1}
         >
           <ChevronRight className="text-gray-700" />
         </button>
